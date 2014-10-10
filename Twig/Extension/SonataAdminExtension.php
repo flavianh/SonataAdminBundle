@@ -32,6 +32,11 @@ class SonataAdminExtension extends \Twig_Extension
     protected $logger;
 
     /**
+     * @var string[]
+     */
+    private $xEditableTypeMapping = array();
+
+    /**
      * @param Pool            $pool
      * @param LoggerInterface $logger
      */
@@ -289,27 +294,20 @@ class SonataAdminExtension extends \Twig_Extension
     }
 
     /**
+     * @param array $xEditableTypeMapping
+     */
+    public function setXEditableTypeMapping($xEditableTypeMapping)
+    {
+        $this->xEditableTypeMapping = $xEditableTypeMapping;
+    }
+
+    /**
      * @param $type
      *
      * @return string|bool
      */
     public function getXEditableType($type)
     {
-        $mapping = array(
-            'boolean'    => 'select',
-            'text'       => 'text',
-            'textarea'   => 'textarea',
-            'email'      => 'email',
-            'string'     => 'text',
-            'smallint'   => 'text',
-            'bigint'     => 'text',
-            'integer'    => 'number',
-            'decimal'    => 'number',
-            'currency'   => 'number',
-            'percent'    => 'number',
-            'url'        => 'url',
-        );
-
-        return isset($mapping[$type]) ? $mapping[$type] : false;
+        return isset($this->xEditableTypeMapping[$type]) ? $this->xEditableTypeMapping[$type] : false;
     }
 }
